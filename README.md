@@ -3,6 +3,10 @@ RecycleView Demo
 
 一个简单的RecycleView Demo :)
 
+## 运行效果
+
+   [参考](https://github.com/xianfeng92/Demo_RecycleView/tree/master/image)
+
 ------------------------------------------------------
 
 ## 使用的开源框架
