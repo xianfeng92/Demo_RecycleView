@@ -15,7 +15,6 @@ RecycleView Demo
 [Butterknife 是 JakeWharton 大神出品的 View 注入框架](https://github.com/JakeWharton/butterknife)
 
 ## 感谢
-Api
 [干货集中营](https://gank.io/api)
 
 
