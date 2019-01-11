@@ -6,6 +6,7 @@ RecycleView Demo
 ## 运行效果
 
    [GridAapter](https://github.com/xianfeng92/Demo_RecycleView/blob/master/image/Screenshot_1547198663.png)
+   
    [LineAdapter](https://github.com/xianfeng92/Demo_RecycleView/blob/master/image/Screenshot_1547198696.png)
 
 ------------------------------------------------------
