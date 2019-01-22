@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -33,7 +34,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class GridActivity extends AppCompatActivity {
 
-    private static final String TAG = "test";
+    private static final String TAG = "GridActivity";
 
     @BindView(R.id.grid_recycler)
     public RecyclerView recyclerview;
@@ -109,6 +110,7 @@ public class GridActivity extends AppCompatActivity {
         if(mAdapter==null){
             Log.d(TAG, "updateAdapter: ");
             recyclerview.setAdapter(mAdapter = new GridAdapter(GridActivity.this,urls));
+            recyclerview.setItemAnimator(new DefaultItemAnimator());
             mAdapter.setOnItemClickListener(new GridAdapter.OnRecyclerViewItemClickListener() {
                 @Override
                 public void onItemClick(View view) {
@@ -145,8 +147,11 @@ public class GridActivity extends AppCompatActivity {
             }
         });
 
+        // ItemTouchHelper是一个处理RecyclerView的滑动删除和拖拽的辅助类
+        // RecyclerView 的item拖拽移动和滑动删除就靠它来实现。
         itemTouchHelper=new ItemTouchHelper(new ItemTouchHelper.Callback() {
             @Override
+            // 用于设置拖拽和滑动的方向
             public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
                 int dragFlags=0;
                 if(recyclerView.getLayoutManager() instanceof StaggeredGridLayoutManager ||recyclerView.getLayoutManager() instanceof GridLayoutManager){
@@ -158,12 +163,19 @@ public class GridActivity extends AppCompatActivity {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
                 Log.d(TAG, "onMove: ");
-                return false;
+                int from = viewHolder.getAdapterPosition();
+                int to = viewHolder1.getAdapterPosition();
+                String movedItems = urls.get(from);
+                urls.remove(from);
+                urls.add(to,movedItems);
+                //更新适配器中item的位置
+                mAdapter.notifyItemMoved(from,to);
+                return true;
             }
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-
+              //这里处理滑动删除
             }
 
             @Override
@@ -172,7 +184,9 @@ public class GridActivity extends AppCompatActivity {
             }
         });
 
-        //recyclerview滚动监听
+        // 实现滑动到列表最后两个item时时自动加载下一页
+        // 可以通过对RecyclerView设置滑动监听，获取当前显示的最后一个item在适配器中的位置
+        // 如果该item的位置小于或等于适配器item总个数减2，就加载下一页数据。
         recyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -191,8 +205,8 @@ public class GridActivity extends AppCompatActivity {
                 super.onScrolled(recyclerView, dx, dy);
                 //获取加载的最后一个可见视图在适配器的位置。
                 lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
-
             }
         });
+
     }
 }

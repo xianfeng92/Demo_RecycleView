@@ -27,6 +27,10 @@
         <activity android:name=".Activity.LineActivity">
 
         </activity>
+
+        <activity android:name=".Activity.StaggeredActivity">
+
+        </activity>
     </application>
 
 </manifest>

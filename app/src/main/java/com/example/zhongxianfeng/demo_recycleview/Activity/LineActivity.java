@@ -41,7 +41,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LineActivity extends AppCompatActivity {
-    private static final String TAG = "test";
+    private static final String TAG = "LineActivity";
 
     @BindView(R.id.line_recycler)
     public RecyclerView recyclerView;

@@ -20,6 +20,9 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.button4)
     public Button button4;
 
+    @BindView(R.id.button5)
+    public Button button5;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,5 +38,11 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.button4)
     public void Click4(){
         startActivity(new Intent(MainActivity.this,LineActivity.class));
+    }
+
+
+    @OnClick(R.id.button5)
+    public void Click5(){
+        startActivity(new Intent(MainActivity.this,StaggeredActivity.class));
     }
 }

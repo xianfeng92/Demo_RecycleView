@@ -17,7 +17,7 @@ import java.util.List;
 
 public class LineAdapter extends RecyclerView.Adapter<LineAdapter.MyViewHolder> implements View.OnClickListener {
 
-    private static final String TAG = "test";
+    private static final String TAG = "LineAdapter";
 
     private Context context;
     private List<String> urls;
